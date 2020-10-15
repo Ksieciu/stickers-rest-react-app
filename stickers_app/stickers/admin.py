@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Sticker
+from .models import Sticker, Board
 # Register your models here.
 
 
@@ -11,3 +11,4 @@ class StickerAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Sticker, StickerAdmin)
+admin.site.register(Board)
