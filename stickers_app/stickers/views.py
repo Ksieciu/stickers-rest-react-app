@@ -28,6 +28,9 @@ class UserBoardList(generics.ListCreateAPIView):
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsOwnerOrReadOnly])
 def board_details(request, board_pk, format=None):
+    """
+        This view returns user's single board - detailed view
+    """
     try:
         board = Board.objects.get(pk=board_pk)
         print(board)
@@ -52,6 +55,9 @@ def board_details(request, board_pk, format=None):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def board_stickers_list(request, board_pk):
+    """
+        This view returns user's sticker list on given board
+    """
     try:
         board = Board.object.get(pk=board_pk)
     except Board.DoesNotExist:
@@ -64,6 +70,9 @@ def board_stickers_list(request, board_pk):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def board_sticker_create(request, *args, **kwargs):
+    """
+        This view creates a sticker
+    """
     serializer = StickerSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(owner=request.user)
@@ -72,6 +81,9 @@ def board_sticker_create(request, *args, **kwargs):
 
 
 class StickerDetails(generics.RetrieveUpdateDestroyAPIView):
+    """
+        This view returns user's single sticker - detailed view
+    """
     queryset = Sticker.objects.all()
     serializer_class = StickerSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
